@@ -12,20 +12,23 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class BurgerTest {
 
+    @Mock
+    Bun bun;
+    @Mock
+    Ingredient ingredient1;
+    @Mock
+    Ingredient ingredient2;
+
     Burger burger = new Burger();
-    Bun bun = Mockito.spy(new Bun("black bun", 100f));
-    Ingredient ingredient1 = Mockito.spy(new Ingredient(IngredientType.SAUCE, "hot sauce", 100f));
-    Ingredient ingredient2 = Mockito.spy(new Ingredient(IngredientType.FILLING, "dinosaur", 200f));
 
     @Test
     public void shouldReturnBurgerPrice() {
-        burger.setBuns(bun);
-        burger.addIngredient(ingredient1);
+        float expectedBurgerPrice = 300f;
         Mockito.when(bun.getPrice()).thenReturn(100f);
         Mockito.when(ingredient1.getPrice()).thenReturn(100f);
 
-        float expectedBurgerPrice = 300f;
-
+        burger.setBuns(bun);
+        burger.addIngredient(ingredient1);
         assertEquals(expectedBurgerPrice, burger.getPrice(), 0);
     }
 
